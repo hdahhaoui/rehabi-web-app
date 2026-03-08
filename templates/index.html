@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rehabi DZ - Assistant renovation energetique</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Rehabi DZ</h1>
+    <p>Assistant pas-a-pas pour etudes de rehabilitation energetique.</p>
+
+    <section class="card" id="step1">
+      <h2>Etape 1 - Identite projet</h2>
+      <div class="grid">
+        <label>Type de batiment
+          <select id="building_type">
+            <option value="maison">Maison individuelle</option>
+            <option value="appartement">Appartement</option>
+          </select>
+        </label>
+        <label>Annee construction
+          <input id="construction_year" type="number" value="1985">
+        </label>
+        <label>Wilaya
+          <select id="wilaya">
+            {% for w in wilayas %}
+            <option value="{{ w }}">{{ w }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>Surface habitable (m2)
+          <input id="habitable_area_m2" type="number" value="120" step="1">
+        </label>
+      </div>
+      <button id="prefillBtn">Pre-remplir automatiquement</button>
+    </section>
+
+    <section class="card" id="step2">
+      <h2>Etape 2 - Enveloppe et geometrie</h2>
+      <div class="grid">
+        <label>Pond. Energie
+          <input id="w_energy" type="number" step="0.05" value="0.25">
+        </label>
+        <label>Pond. Cout
+          <input id="w_cost" type="number" step="0.05" value="0.35">
+        </label>
+        <label>Pond. CO2
+          <input id="w_co2" type="number" step="0.05" value="0.25">
+        </label>
+        <label>Pond. Confort ete
+          <input id="w_summer" type="number" step="0.05" value="0.15">
+        </label>
+      </div>
+      <textarea id="jsonPayload" rows="18"></textarea>
+      <p class="hint">Le JSON est pre-rempli automatiquement. Vous pouvez corriger tout parametre avant simulation.</p>
+    </section>
+
+    <section class="card">
+      <h2>Etape 3 - Lancer simulation</h2>
+      <button id="simulateBtn">Simuler tous les scenarios</button>
+    </section>
+
+    <section class="card" id="step4">
+      <h2>Etape 4 - Resultats avant/apres</h2>
+      <div id="resultMeta"></div>
+      <div id="results"></div>
+    </section>
+  </main>
+
+  <script>
+    const prefillBtn = document.getElementById("prefillBtn");
+    const simulateBtn = document.getElementById("simulateBtn");
+    const jsonPayload = document.getElementById("jsonPayload");
+    const resultsBox = document.getElementById("results");
+    const resultMeta = document.getElementById("resultMeta");
+
+    prefillBtn.addEventListener("click", async () => {
+      const body = {
+        building_type: document.getElementById("building_type").value,
+        construction_year: Number(document.getElementById("construction_year").value),
+        wilaya: document.getElementById("wilaya").value,
+        habitable_area_m2: Number(document.getElementById("habitable_area_m2").value),
+      };
+      const res = await fetch("/api/prefill", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      data.use_profile_defaults = false;
+      jsonPayload.value = JSON.stringify(data, null, 2);
+      document.getElementById("w_energy").value = data.multicriteria_weights?.energy ?? 0.25;
+      document.getElementById("w_cost").value = data.multicriteria_weights?.cost ?? 0.35;
+      document.getElementById("w_co2").value = data.multicriteria_weights?.co2 ?? 0.25;
+      document.getElementById("w_summer").value = data.multicriteria_weights?.summer_comfort ?? 0.15;
+    });
+
+    simulateBtn.addEventListener("click", async () => {
+      resultsBox.innerHTML = "Calcul en cours...";
+      resultMeta.innerHTML = "";
+      let payload;
+      try {
+        payload = JSON.parse(jsonPayload.value);
+      } catch (e) {
+        resultsBox.innerHTML = "JSON invalide. Corrigez le contenu.";
+        return;
+      }
+      payload.multicriteria_weights = {
+        energy: Number(document.getElementById("w_energy").value || 0.25),
+        cost: Number(document.getElementById("w_cost").value || 0.35),
+        co2: Number(document.getElementById("w_co2").value || 0.25),
+        summer_comfort: Number(document.getElementById("w_summer").value || 0.15),
+      };
+
+      const res = await fetch("/api/simulate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      const currency = data.currency || "EUR";
+
+      resultMeta.innerHTML = `
+        <p><strong>Rapport MD:</strong> ${data.report_md_path}</p>
+        <p><strong>Rapport PDF:</strong> ${data.pdf_generated ? data.report_pdf_path : "non genere (installer reportlab)"}</p>
+        <p><strong>Rapport PDF Audit Pro:</strong> ${data.audit_pdf_generated ? data.report_audit_pro_pdf_path : "non genere (installer reportlab)"}</p>
+      `;
+
+      resultsBox.innerHTML = data.results.map((r) => `
+        <article class="result-card">
+          <h3>${r.scenario_name}</h3>
+          <p><strong>Score multicritere:</strong> ${(r.multicriteria?.total_score_100 || 0).toFixed(1)} / 100</p>
+          <p>Chauffage avant/apres: ${r.baseline.annual_heating_need_kwh.toFixed(0)} / ${r.renovated.annual_heating_need_kwh.toFixed(0)} kWh/an</p>
+          <p>Clim avant/apres: ${r.baseline.annual_cooling_need_kwh.toFixed(0)} / ${r.renovated.annual_cooling_need_kwh.toFixed(0)} kWh/an</p>
+          <p>Conso finale avant/apres: ${r.baseline.annual_final_energy_kwh.toFixed(0)} / ${r.renovated.annual_final_energy_kwh.toFixed(0)} kWh/an</p>
+          <p>Cout avant/apres: ${r.baseline.annual_cost_eur.toFixed(0)} / ${r.renovated.annual_cost_eur.toFixed(0)} ${currency}/an</p>
+          <p>CO2 avant/apres: ${r.baseline.annual_co2_kg.toFixed(0)} / ${r.renovated.annual_co2_kg.toFixed(0)} kgCO2/an</p>
+          <p>Economie annuelle: ${r.annual_savings_eur.toFixed(0)} ${currency}/an</p>
+          <p>ROI: ${r.payback_years ? r.payback_years.toFixed(1) + " ans" : "N/A"}</p>
+        </article>
+      `).join("");
+    });
+  </script>
+</body>
+</html>

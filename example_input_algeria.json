@@ -1,0 +1,103 @@
+{
+  "use_profile_defaults": false,
+  "multicriteria_weights": {
+    "energy": 0.25,
+    "cost": 0.35,
+    "co2": 0.25,
+    "summer_comfort": 0.15
+  },
+  "general": {
+    "building_type": "maison",
+    "construction_year": 1990,
+    "city": "Alger",
+    "country": "Algeria",
+    "climate_zone": "DZ",
+    "habitable_area_m2": 150,
+    "floors": 2,
+    "ceiling_height_m": 2.8
+  },
+  "geometry": {
+    "wall_area_m2": 300,
+    "roof_area_m2": 150,
+    "floor_area_m2": 150,
+    "window_area_m2": 28,
+    "orientation": "south",
+    "volume_m3": 420
+  },
+  "envelope": {
+    "walls": {
+      "material": "Maconnerie",
+      "thickness_m": 0.2,
+      "u_value_w_m2k": 0.8
+    },
+    "roof": {
+      "material": "Toiture terrasse",
+      "thickness_m": 0.2,
+      "u_value_w_m2k": 0.45
+    },
+    "floor": {
+      "material": "Dalle beton",
+      "thickness_m": 0.2,
+      "u_value_w_m2k": 0.6
+    },
+    "windows": {
+      "material": "Vitrage standard",
+      "thickness_m": 0.006,
+      "u_value_w_m2k": 2.8
+    },
+    "window_solar_factor_g": 0.5
+  },
+  "ventilation": {
+    "ventilation_type": "naturelle",
+    "air_change_rate_ach": 0.7,
+    "airtightness_level": "moyenne"
+  },
+  "systems": {
+    "heating": {
+      "system_type": "Chaudiere gaz",
+      "efficiency": 0.85,
+      "nominal_power_kw": 24,
+      "energy_carrier": "gas"
+    },
+    "cooling": {
+      "system_type": "Split",
+      "cop_eer": 3.0,
+      "nominal_power_kw": 7,
+      "energy_carrier": "electricity"
+    },
+    "dhw_energy_kwh_year": 2800
+  },
+  "occupancy": {
+    "occupants": 5,
+    "heating_setpoint_c": 20,
+    "cooling_setpoint_c": 26,
+    "occupied_hours_per_day": 14
+  },
+  "economics": {
+    "currency": "DZD",
+    "energy_price_eur_kwh": {
+      "electricity": 5.65,
+      "gas": 0.384,
+      "dhw": 0.384
+    },
+    "co2_factor_kg_kwh": {
+      "electricity": 0.5,
+      "gas": 0.202,
+      "dhw": 0.202
+    },
+    "renovation_cost_eur": {
+      "isolation_murs": 1800000,
+      "isolation_toiture": 1050000,
+      "remplacement_fenetres": 1350000,
+      "pac_chauffage": 1500000,
+      "renovation_globale": 4800000
+    },
+    "subsidies_eur": {
+      "isolation_murs": 220000,
+      "isolation_toiture": 130000,
+      "remplacement_fenetres": 150000,
+      "pac_chauffage": 240000,
+      "renovation_globale": 680000
+    }
+  }
+}

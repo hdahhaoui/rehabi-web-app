@@ -1,0 +1,95 @@
+{
+  "use_profile_defaults": true,
+  "general": {
+    "building_type": "maison",
+    "construction_year": 1975,
+    "city": "Lyon",
+    "climate_zone": "H1c",
+    "habitable_area_m2": 140,
+    "floors": 2,
+    "ceiling_height_m": 2.5
+  },
+  "geometry": {
+    "wall_area_m2": 180,
+    "roof_area_m2": 90,
+    "floor_area_m2": 90,
+    "window_area_m2": 28,
+    "orientation": "south"
+  },
+  "envelope": {
+    "walls": {
+      "material": "Brique pleine",
+      "thickness_m": 0.24,
+      "u_value_w_m2k": 1.5
+    },
+    "roof": {
+      "material": "Toiture tuile",
+      "thickness_m": 0.18,
+      "u_value_w_m2k": 1.0
+    },
+    "floor": {
+      "material": "Dalle beton",
+      "thickness_m": 0.20,
+      "u_value_w_m2k": 1.0
+    },
+    "windows": {
+      "material": "Simple vitrage",
+      "thickness_m": 0.006,
+      "u_value_w_m2k": 4.8
+    },
+    "window_solar_factor_g": 0.62
+  },
+  "ventilation": {
+    "ventilation_type": "naturelle",
+    "air_change_rate_ach": 1.1,
+    "airtightness_level": "faible"
+  },
+  "systems": {
+    "heating": {
+      "system_type": "Chaudiere gaz",
+      "efficiency": 0.82,
+      "nominal_power_kw": 24,
+      "energy_carrier": "gas"
+    },
+    "cooling": {
+      "system_type": "Split",
+      "cop_eer": 2.8,
+      "nominal_power_kw": 7,
+      "energy_carrier": "electricity"
+    },
+    "dhw_energy_kwh_year": 2800
+  },
+  "occupancy": {
+    "occupants": 4,
+    "heating_setpoint_c": 20,
+    "cooling_setpoint_c": 26,
+    "occupied_hours_per_day": 14
+  },
+  "economics": {
+    "energy_price_eur_kwh": {
+      "electricity": 0.23,
+      "gas": 0.11,
+      "dhw": 0.11
+    },
+    "co2_factor_kg_kwh": {
+      "electricity": 0.055,
+      "gas": 0.227,
+      "dhw": 0.227
+    },
+    "renovation_cost_eur": {
+      "isolation_murs": 22000,
+      "isolation_toiture": 12000,
+      "remplacement_fenetres": 18000,
+      "pac_chauffage": 16000,
+      "renovation_globale": 62000
+    },
+    "subsidies_eur": {
+      "isolation_murs": 4000,
+      "isolation_toiture": 2500,
+      "remplacement_fenetres": 3000,
+      "pac_chauffage": 4500,
+      "renovation_globale": 14000
+    }
+  }
+}
+
