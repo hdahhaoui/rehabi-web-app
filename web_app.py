@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, send_file
 
 from rehabi.calibration_dz import ALGERIA_WILAYA_CLIMATE
 from rehabi.decision import compute_multicriteria_scores
@@ -16,6 +16,7 @@ from rehabi.report import generate_markdown_report, write_audit_pro_pdf, write_p
 
 
 app = Flask(__name__)
+LATEST_OUTPUT = None
 
 
 @app.get("/")
@@ -50,6 +51,8 @@ def api_simulate():
 
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir = Path("web_outputs") / stamp
+    global LATEST_OUTPUT
+LATEST_OUTPUT = out_dir
     out_dir.mkdir(parents=True, exist_ok=True)
 
     (out_dir / "results.json").write_text(
@@ -88,6 +91,22 @@ def api_simulate():
         }
     )
 
+@app.route("/download/report-pdf")
+def download_pdf():
+    global LATEST_OUTPUT
+    return send_file(LATEST_OUTPUT / "report.pdf", as_attachment=True)
+
+
+@app.route("/download/report-md")
+def download_md():
+    global LATEST_OUTPUT
+    return send_file(LATEST_OUTPUT / "report.md", as_attachment=True)
+
+
+@app.route("/download/report-audit")
+def download_audit():
+    global LATEST_OUTPUT
+    return send_file(LATEST_OUTPUT / "report_audit_pro.pdf", as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
