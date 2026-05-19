@@ -218,13 +218,13 @@ def write_audit_pro_pdf(
         height - 90*mm,
         "RAPPORT D'AUDIT ENERGETIQUE"
     )
-c.setFont(font_regular, 10)
+    c.setFont(font_regular, 10)
 
-c.drawCentredString(
-    width/2,
-    height - 120*mm,
-    f"{building.general.city} - {building.general.construction_year}"
-)
+    c.drawCentredString(
+        width/2,
+        height - 120*mm,
+        f"{building.general.city} - {building.general.construction_year}"
+    )
     y = draw_line(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}", y)
     y = draw_line(f"Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
     y = draw_line(f"Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
