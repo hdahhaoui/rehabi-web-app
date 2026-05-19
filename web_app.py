@@ -97,7 +97,7 @@ def api_simulate():
 @app.route("/download/report-pdf")
 def download_pdf():
     global LATEST_OUTPUT
-    return send_file(LATEST_OUTPUT / "report.pdf", as_attachment=True)
+    return send_file(str(LATEST_OUTPUT / "report.pdf"), as_attachment=True)
 
 
 @app.route("/download/report-md")
@@ -109,7 +109,7 @@ def download_md():
 @app.route("/download/report-audit")
 def download_audit():
     global LATEST_OUTPUT
-    return send_file(LATEST_OUTPUT / "report_audit_pro.pdf", as_attachment=True)
+    return send_file(str(LATEST_OUTPUT / "report_audit_pro.pdf"), as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
