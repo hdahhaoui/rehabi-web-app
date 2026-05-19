@@ -175,7 +175,7 @@ def write_audit_pro_pdf(
     except Exception:
         font_regular = "Helvetica"
 
-   def new_page() -> float:
+    def new_page() -> float:
        c.showPage()
        draw_frame()  
        return height - margin
