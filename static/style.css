@@ -86,4 +86,22 @@ button:not(.pdf-btn) {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(231, 76, 60, 0.35);
 }
+.header {
+  text-align: center;
+  padding: 25px 10px;
+}
 
+.header h1 {
+  margin: 10px 0 5px;
+}
+
+.header p {
+  margin: 0;
+  color: #395777;
+}
+
+.logo {
+  width: 110px;
+  height: auto;
+  margin-bottom: 10px;
+}
