@@ -131,18 +131,18 @@
       resultMeta.innerHTML = `
         <div class="download-links">
 
-        <a class="pdf-btn" href="/download/report-pdf" target="_blank">
+        <a class="pdf-btn" href="/download/report-pdf?t=${Date.now()}" target="_blank">
           <i class="fa-solid fa-file-pdf"></i>
           Télécharger Rapport PDF
         </a>
 
-        <a class="pdf-btn" href="/download/report-audit" target="_blank">
+        <a class="pdf-btn" href="/download/report-audit?t=${Date.now()}" target="_blank">
           <i class="fa-solid fa-file-circle-check"></i>
           Télécharger Audit Pro
         </a>
 
         </div>
-      `;
+    `;
 
       resultsBox.innerHTML = data.results.map((r) => `
         <article class="result-card">
