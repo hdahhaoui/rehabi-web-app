@@ -152,6 +152,22 @@ def write_audit_pro_pdf(
     width, height = A4
     margin = 18 * mm
     y = height - margin
+    draw_frame()
+    logo_path = "static/logo.png"
+
+    if Path(logo_path).exists():
+        c.drawImage(
+            logo_path,
+            width/2 - 25*mm,
+            height - 60*mm,
+            width=50*mm,
+            height=50*mm,
+            preserveAspectRatio=True,
+            mask='auto'
+        )
+    from pathlib import Path
+
+    logo_path = "static/logo.png"
 
     try:
         pdfmetrics.registerFont(TTFont("DejaVu", "DejaVuSans.ttf"))
@@ -159,9 +175,10 @@ def write_audit_pro_pdf(
     except Exception:
         font_regular = "Helvetica"
 
-    def new_page() -> float:
-        c.showPage()
-        return height - margin
+   def new_page() -> float:
+       c.showPage()
+       draw_frame()  
+       return height - margin
 
     def ensure_space(ypos: float, needed: float) -> float:
         if ypos - needed < margin:
@@ -192,7 +209,22 @@ def write_audit_pro_pdf(
         return ypos
 
     # Cover page
-    y = draw_title("Rapport Audit Pro - Rehabilitation Energetique", y)
+    draw_logo()
+    c.setFont(font_regular, 20)
+    c.setFillColor(colors.HexColor("#0f4c81"))
+
+    c.drawCentredString(
+        width/2,
+        height - 90*mm,
+        "RAPPORT D'AUDIT ENERGETIQUE"
+    )
+c.setFont(font_regular, 10)
+
+c.drawCentredString(
+    width/2,
+    height - 120*mm,
+    f"{building.general.city} - {building.general.construction_year}"
+)
     y = draw_line(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}", y)
     y = draw_line(f"Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
     y = draw_line(f"Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
@@ -287,7 +319,21 @@ def write_audit_pro_pdf(
     y = draw_line("Pour validation execution, completer avec devis entreprises, audit sur site et donnees meteo locales detaillees.", y)
 
     c.save()
-
+    def draw_logo():
+        if Path(logo_path).exists():
+            c.drawImage(
+                logo_path,
+                margin,
+                height - 45 * mm,
+                width=35 * mm,
+                height=35 * mm,
+                preserveAspectRatio=True,
+                mask='auto'
+            )
+def draw_frame():
+    c.setStrokeColor(colors.HexColor("#0f4c81"))
+    c.setLineWidth(1)
+    c.rect(10, 10, width - 20, height - 20)
 
 def _build_prioritized_recommendations(
     ranked: List[ScenarioResults],
