@@ -50,9 +50,12 @@ def api_simulate():
         item["multicriteria"] = scoring.get(item["scenario_name"], {})
 
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
     out_dir = Path("web_outputs") / stamp
+
     global LATEST_OUTPUT
     LATEST_OUTPUT = out_dir
+
     out_dir.mkdir(parents=True, exist_ok=True)
 
     (out_dir / "results.json").write_text(
