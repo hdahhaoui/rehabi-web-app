@@ -124,9 +124,19 @@
       const currency = data.currency || "EUR";
 
       resultMeta.innerHTML = `
-        <p><strong>Rapport MD:</strong> ${data.report_md_path}</p>
-        <p><strong>Rapport PDF:</strong> ${data.pdf_generated ? data.report_pdf_path : "non genere (installer reportlab)"}</p>
-        <p><strong>Rapport PDF Audit Pro:</strong> ${data.audit_pdf_generated ? data.report_audit_pro_pdf_path : "non genere (installer reportlab)"}</p>
+        <div class="download-links">
+
+        <a class="pdf-btn" href="/download/report-pdf" target="_blank">
+          <i class="fa-solid fa-file-pdf"></i>
+          Télécharger Rapport PDF
+        </a>
+
+        <a class="pdf-btn" href="/download/report-audit" target="_blank">
+          <i class="fa-solid fa-file-circle-check"></i>
+          Télécharger Audit Pro
+        </a>
+
+        </div>
       `;
 
       resultsBox.innerHTML = data.results.map((r) => `
