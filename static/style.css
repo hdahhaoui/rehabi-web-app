@@ -48,7 +48,7 @@ textarea {
   font-family: Consolas, monospace;
 }
 
-button {
+button:not(.pdf-btn) {
   cursor: pointer;
   background: #0f4c81;
   color: #fff;
