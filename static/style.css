@@ -67,4 +67,22 @@ button {
   margin-bottom: 10px;
   background: #fbfdff;
 }
+.pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 10px;
+  transition: 0.2s;
+}
+
+.pdf-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
 
