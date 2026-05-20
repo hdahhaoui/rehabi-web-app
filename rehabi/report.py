@@ -160,10 +160,10 @@ def write_audit_pro_pdf(
         if Path(logo_path).exists():
             c.drawImage(
                 logo_path,
-                 width - margin - 35 * mm,                 # gauche propre
-                height - 35 * mm,       # haut
-                width=35 * mm,
-                height=35 * mm,
+                width - margin - 20 * mm,   # droite dans cadre
+                height - 30 * mm,           # haut dans cadre
+                width=15 * mm,              # ✅ petit logo
+                height=15 * mm,
                 preserveAspectRatio=True,
                 mask='auto'
             )
@@ -182,7 +182,6 @@ def write_audit_pro_pdf(
     def new_page() -> float:
         c.showPage()
         draw_frame()
-        draw_logo()
         return height - margin
 
     def ensure_space(ypos: float, needed: float) -> float:
