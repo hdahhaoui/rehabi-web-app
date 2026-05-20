@@ -259,36 +259,36 @@ def write_audit_pro_pdf(
     c.setFillColor(colors.black)
 
    
-    y = draw_line(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}", y)
-    y = draw_line(f"Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
-    y = draw_line(f"Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
-    y = draw_line(f"Année de construction: {building.general.construction_year}", y)
-    y = draw_line(" Objectif : comparer différents scénarios de réhabilitation énergétique (énergie, coût, émissions de CO₂ et retour sur investissement).", y)
-    y = draw_line("Contenu : hypothèses de calcul, résultats comparatifs et recommandations hiérarchisées.", y)
+    y = draw_line(f"-Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}", y)
+    y = draw_line(f"-Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
+    y = draw_line(f"-Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
+    y = draw_line(f"-Année de construction: {building.general.construction_year}", y)
+    y = draw_line("-Objectif : comparer différents scénarios de réhabilitation énergétique (énergie, coût, émissions de CO₂ et retour sur investissement).", y)
+    y = draw_line("-Contenu : hypothèses de calcul, résultats comparatifs et recommandations hiérarchisées.", y)
     y = new_page()
 
     # Hypotheses section
-    y = draw_h2("1) Hypothèses de calcul", y)
-    y = draw_line("modèle: Niveau 1 solide + apports simplifies niveau 2.", y)
-    y = draw_line("Transmission thermique: Q_trans = U x A x deltaT", y)
-    y = draw_line("Ventilation: Q_vent = 0.34 x n x V x deltaT", y)
+    y = draw_h2("1) Hypothèses de calcul :", y)
+    y = draw_line("-Modèle : niveau 1 – calcul simplifié avec apports thermiques de niveau 2.", y)
+    y = draw_line("-Transmission thermique: Q_trans = U x A x deltaT", y)
+    y = draw_line("-Ventilation: Q_vent = 0.34 x n x V x deltaT", y)
     y = draw_line(
-        f"Enveloppe thermique U (W/m2.K): murs={building.envelope.walls.u_value_w_m2k:.2f}, toiture={building.envelope.roof.u_value_w_m2k:.2f}, sol={building.envelope.floor.u_value_w_m2k:.2f}, Fenêtres={building.envelope.windows.u_value_w_m2k:.2f}",
+        f"-Enveloppe thermique U (W/m2.K): murs={building.envelope.walls.u_value_w_m2k:.2f}, toiture={building.envelope.roof.u_value_w_m2k:.2f}, sol={building.envelope.floor.u_value_w_m2k:.2f}, Fenêtres={building.envelope.windows.u_value_w_m2k:.2f}",
         y,
     )
     y = draw_line(
-        f"Ventilation / infiltration: n={building.ventilation.air_change_rate_ach:.2f} vol/h, volume={_fmt(building.geometry.volume_m3 or 0.0, 0)} m3",
+        f"-Ventilation / infiltration: n={building.ventilation.air_change_rate_ach:.2f} vol/h, volume={_fmt(building.geometry.volume_m3 or 0.0, 0)} m3",
         y,
     )
     y = draw_line(
-        f"Systèmes: chauffage={building.systems.heating.system_type} (eta={building.systems.heating.efficiency:.2f}), clim={building.systems.cooling.system_type} (COP/EER={building.systems.cooling.cop_eer:.2f})",
+        f"-Systèmes: chauffage={building.systems.heating.system_type} (eta={building.systems.heating.efficiency:.2f}), clim={building.systems.cooling.system_type} (COP/EER={building.systems.cooling.cop_eer:.2f})",
         y,
     )
     y = draw_line(
-        f"Énergie / prix ({building.economics.currency}/kWh): {building.economics.energy_price_eur_kwh}",
+        f"-Énergie / prix ({building.economics.currency}/kWh): {building.economics.energy_price_eur_kwh}",
         y,
     )
-    y = draw_line(f"Facteurs CO2 (kgCO2/kWh): {building.economics.co2_factor_kg_kwh}", y)
+    y = draw_line(f"-Facteurs CO2 (kgCO2/kWh): {building.economics.co2_factor_kg_kwh}", y)
 
     y = new_page()
 
@@ -349,7 +349,7 @@ def write_audit_pro_pdf(
             else f"Scénario énergétiquement pertinent: {best.scenario_name} (score {best_score:.1f}/100, ROI non definissable).",
             y,
         )
-    y = draw_line("Pour validation de l’exécution, compléter avec les devis des entreprises, un audit sur site et des données météorologiques locales détaillées..", y)
+    y = draw_line("Pour validation de l’exécution, compléter avec les devis des entreprises, un audit sur site et des données météorologiques locales détaillées.", y)
 
     c.save()
     
