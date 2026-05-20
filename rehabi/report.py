@@ -77,6 +77,11 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
     margin = 40
     y = height - margin
 
+    def draw_frame():
+        c.setStrokeColor(colors.HexColor("#0f4c81"))
+        c.setLineWidth(1)
+        c.rect(10, 10, width - 20, height - 20, stroke=1, fill=0)
+
     # Register Unicode-friendly font fallback if present.
     try:
         pdfmetrics.registerFont(TTFont("DejaVu", "DejaVuSans.ttf"))
