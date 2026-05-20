@@ -78,7 +78,8 @@ def api_simulate():
             results,
             payload.get("multicriteria_weights"),
         )
-    except Exception:
+    except Exception as e:
+        print("ERREUR AUDIT PDF :", e)
         audit_pdf_generated = False
 
     return jsonify(
