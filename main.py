@@ -68,7 +68,7 @@ def main() -> None:
             str(out_dir / "report_audit_pro.pdf"),
             building,
             results,
-            data.get("multicriteria_weights"),
+            data.get("Indice de performance globale (/100)"),
         )
     except Exception as exc:
         print(f"PDF audit pro non genere ({exc}). Installez reportlab pour activer l'export PDF.")
