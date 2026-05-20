@@ -66,7 +66,7 @@ def _global_combined(building: BuildingInput) -> BuildingInput:
 
 
 SCENARIO_FUNCTIONS: Dict[str, Callable[[BuildingInput], BuildingInput]] = {
-    "isolation_murs": _insulate_walls,
+    "Isolation des murs": _insulate_walls,
     "isolation_toiture": _insulate_roof,
     "remplacement_fenetres": _replace_windows,
     "pac_chauffage": _heat_pump,
