@@ -20,16 +20,15 @@ def _fmt_optional(v: float | None, ndigits: int = 1) -> str:
 def generate_markdown_report(building: BuildingInput, results: List[ScenarioResults]) -> str:
     lines: List[str] = []
     currency = building.economics.currency
-    lines.append("# Rapport de réhabilitation énergétique")
     lines.append("")
     lines.append("## Données bâtiment")
     lines.append(f"- Type: {building.general.building_type}")
     lines.append(f"- Année de construction: {building.general.construction_year}")
-    lines.append(f"- Ville: {building.general.city}")
+    lines.append(f"- Wilaya: {building.general.city}")
     lines.append(f"- Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2")
     lines.append(f"- Volume: {_fmt(building.geometry.volume_m3 or 0.0, 0)} m3 (0 si auto-calcule)")
     lines.append("")
-    lines.append("## Résultats par scénario")
+    lines.append("## Résultats par scénario:")
     lines.append("")
 
     for r in results:
@@ -44,10 +43,10 @@ def generate_markdown_report(building: BuildingInput, results: List[ScenarioResu
             f"- Consommation finale avant/après: {_fmt(r.baseline.annual_final_energy_kwh, 0)} / {_fmt(r.renovated.annual_final_energy_kwh, 0)} kWh/an"
         )
         lines.append(f"- Coût énergétique avant/après: {_fmt(r.baseline.annual_cost_eur, 0)} / {_fmt(r.renovated.annual_cost_eur, 0)} {currency}/an")
-        lines.append(f"- Émissions de CO₂ avant/après: {_fmt(r.baseline.annual_co2_kg, 0)} / {_fmt(r.renovated.annual_co2_kg, 0)} kgCO2/an")
+        lines.append(f"- Émissions de CO2 avant/après: {_fmt(r.baseline.annual_co2_kg, 0)} / {_fmt(r.renovated.annual_co2_kg, 0)} kgCO2/an")
         lines.append(f"- Économies annuelles: {_fmt(r.annual_savings_eur, 0)} {currency}/an")
         lines.append(f"- Gain énergétique: {_fmt(r.annual_savings_kwh, 0)} kWh/an")
-        lines.append(f"- Réduction des émissions de CO₂: {_fmt(r.annual_co2_reduction_kg, 0)} kgCO2/an")
+        lines.append(f"- Réduction des émissions de CO2: {_fmt(r.annual_co2_reduction_kg, 0)} kgCO2/an")
         lines.append(f"- Investissement net: {_fmt(r.net_investment_eur, 0)} {currency}")
         lines.append(f"- Temps de retour sur investissement: {_fmt_optional(r.payback_years, 1)} ans")
         if r.notes:
@@ -263,30 +262,30 @@ def write_audit_pro_pdf(
     y = draw_line(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}", y)
     y = draw_line(f"Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
     y = draw_line(f"Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
-    y = draw_line(f"Annee de construction: {building.general.construction_year}", y)
+    y = draw_line(f"Année de construction: {building.general.construction_year}", y)
     y = draw_line("comparer différents scénarios de réhabilitation énergétique (énergie, coût, émissions de CO₂ et retour sur investissement).", y)
     y = draw_line("Contenu : hypothèses de calcul, résultats comparatifs et recommandations hiérarchisées.", y)
     y = new_page()
 
     # Hypotheses section
     y = draw_h2("1) Hypothèses de calcul", y)
-    y = draw_line("Modele: Niveau 1 solide + apports simplifies niveau 2.", y)
-    y = draw_line("Transmission: Q_trans = U x A x deltaT", y)
+    y = draw_line("modèle: Niveau 1 solide + apports simplifies niveau 2.", y)
+    y = draw_line("Transmission thermique: Q_trans = U x A x deltaT", y)
     y = draw_line("Ventilation: Q_vent = 0.34 x n x V x deltaT", y)
     y = draw_line(
-        f"Enveloppe U (W/m2.K): murs={building.envelope.walls.u_value_w_m2k:.2f}, toiture={building.envelope.roof.u_value_w_m2k:.2f}, sol={building.envelope.floor.u_value_w_m2k:.2f}, fenetres={building.envelope.windows.u_value_w_m2k:.2f}",
+        f"Enveloppe thermique U (W/m2.K): murs={building.envelope.walls.u_value_w_m2k:.2f}, toiture={building.envelope.roof.u_value_w_m2k:.2f}, sol={building.envelope.floor.u_value_w_m2k:.2f}, Fenêtres={building.envelope.windows.u_value_w_m2k:.2f}",
         y,
     )
     y = draw_line(
-        f"Ventilation/infiltration: n={building.ventilation.air_change_rate_ach:.2f} vol/h, volume={_fmt(building.geometry.volume_m3 or 0.0, 0)} m3",
+        f"Ventilation / infiltration: n={building.ventilation.air_change_rate_ach:.2f} vol/h, volume={_fmt(building.geometry.volume_m3 or 0.0, 0)} m3",
         y,
     )
     y = draw_line(
-        f"Systemes: chauffage={building.systems.heating.system_type} (eta={building.systems.heating.efficiency:.2f}), clim={building.systems.cooling.system_type} (COP/EER={building.systems.cooling.cop_eer:.2f})",
+        f"Systèmes: chauffage={building.systems.heating.system_type} (eta={building.systems.heating.efficiency:.2f}), clim={building.systems.cooling.system_type} (COP/EER={building.systems.cooling.cop_eer:.2f})",
         y,
     )
     y = draw_line(
-        f"Energie/prix ({building.economics.currency}/kWh): {building.economics.energy_price_eur_kwh}",
+        f"Énergie / prix ({building.economics.currency}/kWh): {building.economics.energy_price_eur_kwh}",
         y,
     )
     y = draw_line(f"Facteurs CO2 (kgCO2/kWh): {building.economics.co2_factor_kg_kwh}", y)
@@ -296,8 +295,8 @@ def write_audit_pro_pdf(
     scores = compute_multicriteria_scores(results, multicriteria_weights)
 
     # Comparative table
-    y = draw_h2("2) Tableau comparatif des scenarios", y)
-    headers = ["Scenario", "Score/100", "Economie/an", "CO2 evit.", "ROI (ans)"]
+    y = draw_h2("2)Tableau comparatif des scénarios:", y)
+    headers = ["Scenario", "Score/100", "Économies/an", "CO2 evit.", "ROI (ans)"]
     col_x = [margin, margin + 58 * mm, margin + 84 * mm, margin + 126 * mm, margin + 158 * mm]
     row_h = 8 * mm
 
@@ -335,19 +334,19 @@ def write_audit_pro_pdf(
     y -= 4 * mm
 
     # Prioritized recommendations
-    y = draw_h2("3) Recommandations priorisees", y)
+    y = draw_h2("3) Recommandations priorisées: ", y)
     recommendations = _build_prioritized_recommendations(ranked, scores)
     for idx, rec in enumerate(recommendations, start=1):
         y = draw_line(f"{idx}. {rec}", y)
 
-    y = draw_h2("4) Conclusion", y)
+    y = draw_h2("4) Conclusion :", y)
     best = ranked[0] if ranked else None
     if best:
         best_score = scores[best.scenario_name]["total_score_100"]
         y = draw_line(
-            f"Scenario prioritaire recommande: {best.scenario_name} (score {best_score:.1f}/100, ROI {best.payback_years:.1f} ans, economie {_fmt(best.annual_savings_eur,0)} {building.economics.currency}/an)."
+            f"Scénario prioritaire recommandé: {best.scenario_name} (score {best_score:.1f}/100, ROI {best.payback_years:.1f} ans, economie {_fmt(best.annual_savings_eur,0)} {building.economics.currency}/an)."
             if best.payback_years is not None
-            else f"Scenario pertinent energetiquement: {best.scenario_name} (score {best_score:.1f}/100, ROI non definissable).",
+            else f"Scénario énergétiquement pertinent: {best.scenario_name} (score {best_score:.1f}/100, ROI non definissable).",
             y,
         )
     y = draw_line("Pour validation de l’exécution, compléter avec les devis des entreprises, un audit sur site et des données météorologiques locales détaillées..", y)
@@ -368,16 +367,16 @@ def _build_prioritized_recommendations(
         comfort = s.get("summer_comfort_score_100", 0.0)
         if r.payback_years is not None and r.payback_years <= 7:
             recs.append(
-                f"Priorite haute: {r.scenario_name} - score {total_score:.1f}/100, ROI court ({r.payback_years:.1f} ans), confort ete {comfort:.1f}/100."
+                f"Priorité élevée: {r.scenario_name} - score {total_score:.1f}/100, ROI court ({r.payback_years:.1f} ans), confort ete {comfort:.1f}/100."
             )
         elif r.payback_years is not None and r.payback_years <= 12:
             recs.append(
-                f"Priorite moyenne: {r.scenario_name} - score {total_score:.1f}/100, ROI acceptable ({r.payback_years:.1f} ans)."
+                f"Priorité moyenne: {r.scenario_name} - score {total_score:.1f}/100, ROI acceptable ({r.payback_years:.1f} ans)."
             )
         else:
             recs.append(
-                f"Priorite basse: {r.scenario_name} - score {total_score:.1f}/100, gains techniques interessants mais ROI long."
+                f"Priorité faible: {r.scenario_name} - score {total_score:.1f}/100, gains techniques interessants mais ROI long."
             )
     if not recs:
-        recs.append("Aucune priorite claire: verifier les hypotheses de prix energie, cout travaux et performances reelles.")
+        recs.append("Aucune priorité claire : vérifier les hypothèses relatives au prix de l’énergie, au coût des travaux et aux performances réelles.")
     return recs[:5]
