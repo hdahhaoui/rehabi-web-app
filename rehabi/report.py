@@ -20,36 +20,36 @@ def _fmt_optional(v: float | None, ndigits: int = 1) -> str:
 def generate_markdown_report(building: BuildingInput, results: List[ScenarioResults]) -> str:
     lines: List[str] = []
     currency = building.economics.currency
-    lines.append("# Rapport de rehabilitation energetique")
+    lines.append("# Rapport de réhabilitation énergétique")
     lines.append("")
-    lines.append("## Donnees batiment")
+    lines.append("## Données bâtiment")
     lines.append(f"- Type: {building.general.building_type}")
-    lines.append(f"- Annee construction: {building.general.construction_year}")
+    lines.append(f"- Année de construction: {building.general.construction_year}")
     lines.append(f"- Ville: {building.general.city}")
     lines.append(f"- Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2")
     lines.append(f"- Volume: {_fmt(building.geometry.volume_m3 or 0.0, 0)} m3 (0 si auto-calcule)")
     lines.append("")
-    lines.append("## Resultats par scenario")
+    lines.append("## Résultats par scénario")
     lines.append("")
 
     for r in results:
         lines.append(f"### {r.scenario_name}")
         lines.append(
-            f"- Besoin chauffage avant/apres: {_fmt(r.baseline.annual_heating_need_kwh, 0)} / {_fmt(r.renovated.annual_heating_need_kwh, 0)} kWh/an"
+            f"- Besoin de chauffage avant/après: {_fmt(r.baseline.annual_heating_need_kwh, 0)} / {_fmt(r.renovated.annual_heating_need_kwh, 0)} kWh/an"
         )
         lines.append(
-            f"- Besoin climatisation avant/apres: {_fmt(r.baseline.annual_cooling_need_kwh, 0)} / {_fmt(r.renovated.annual_cooling_need_kwh, 0)} kWh/an"
+            f"- Besoin de climatisation avant/après: {_fmt(r.baseline.annual_cooling_need_kwh, 0)} / {_fmt(r.renovated.annual_cooling_need_kwh, 0)} kWh/an"
         )
         lines.append(
-            f"- Conso finale avant/apres: {_fmt(r.baseline.annual_final_energy_kwh, 0)} / {_fmt(r.renovated.annual_final_energy_kwh, 0)} kWh/an"
+            f"- Consommation finale avant/après: {_fmt(r.baseline.annual_final_energy_kwh, 0)} / {_fmt(r.renovated.annual_final_energy_kwh, 0)} kWh/an"
         )
-        lines.append(f"- Cout energetique avant/apres: {_fmt(r.baseline.annual_cost_eur, 0)} / {_fmt(r.renovated.annual_cost_eur, 0)} {currency}/an")
-        lines.append(f"- Emissions CO2 avant/apres: {_fmt(r.baseline.annual_co2_kg, 0)} / {_fmt(r.renovated.annual_co2_kg, 0)} kgCO2/an")
-        lines.append(f"- Economie annuelle: {_fmt(r.annual_savings_eur, 0)} {currency}/an")
-        lines.append(f"- Gain energie: {_fmt(r.annual_savings_kwh, 0)} kWh/an")
-        lines.append(f"- Reduction CO2: {_fmt(r.annual_co2_reduction_kg, 0)} kgCO2/an")
+        lines.append(f"- Coût énergétique avant/après: {_fmt(r.baseline.annual_cost_eur, 0)} / {_fmt(r.renovated.annual_cost_eur, 0)} {currency}/an")
+        lines.append(f"- Émissions de CO₂ avant/après: {_fmt(r.baseline.annual_co2_kg, 0)} / {_fmt(r.renovated.annual_co2_kg, 0)} kgCO2/an")
+        lines.append(f"- Économies annuelles: {_fmt(r.annual_savings_eur, 0)} {currency}/an")
+        lines.append(f"- Gain énergétique: {_fmt(r.annual_savings_kwh, 0)} kWh/an")
+        lines.append(f"- Réduction des émissions de CO₂: {_fmt(r.annual_co2_reduction_kg, 0)} kgCO2/an")
         lines.append(f"- Investissement net: {_fmt(r.net_investment_eur, 0)} {currency}")
-        lines.append(f"- Temps de retour: {_fmt_optional(r.payback_years, 1)} ans")
+        lines.append(f"- Temps de retour sur investissement: {_fmt_optional(r.payback_years, 1)} ans")
         if r.notes:
             lines.append(f"- Notes: {'; '.join(r.notes)}")
         lines.append("")
@@ -264,12 +264,12 @@ def write_audit_pro_pdf(
     y = draw_line(f"Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
     y = draw_line(f"Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
     y = draw_line(f"Annee de construction: {building.general.construction_year}", y)
-    y = draw_line("Objectif: comparer des scenarios de rehabilitation (energie, cout, CO2, ROI).", y)
-    y = draw_line("Contenu: hypotheses, resultats comparatifs et recommandations priorisees.", y)
+    y = draw_line("comparer différents scénarios de réhabilitation énergétique (énergie, coût, émissions de CO₂ et retour sur investissement).", y)
+    y = draw_line("Contenu : hypothèses de calcul, résultats comparatifs et recommandations hiérarchisées.", y)
     y = new_page()
 
     # Hypotheses section
-    y = draw_h2("1) Hypotheses de calcul", y)
+    y = draw_h2("1) Hypothèses de calcul", y)
     y = draw_line("Modele: Niveau 1 solide + apports simplifies niveau 2.", y)
     y = draw_line("Transmission: Q_trans = U x A x deltaT", y)
     y = draw_line("Ventilation: Q_vent = 0.34 x n x V x deltaT", y)
@@ -350,7 +350,7 @@ def write_audit_pro_pdf(
             else f"Scenario pertinent energetiquement: {best.scenario_name} (score {best_score:.1f}/100, ROI non definissable).",
             y,
         )
-    y = draw_line("Pour validation execution, completer avec devis entreprises, audit sur site et donnees meteo locales detaillees.", y)
+    y = draw_line("Pour validation de l’exécution, compléter avec les devis des entreprises, un audit sur site et des données météorologiques locales détaillées..", y)
 
     c.save()
     
