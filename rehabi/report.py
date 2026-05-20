@@ -228,10 +228,7 @@ def write_audit_pro_pdf(
     c.setFont(font_regular, 10)
     c.setFillColor(colors.black)
 
-    c.drawCentredString(
-        width/2,
-        height - 120*mm,
-        f"{building.general.city} - {building.general.construction_year}"
+   
     )
     y = draw_line(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}", y)
     y = draw_line(f"Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
