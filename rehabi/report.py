@@ -237,9 +237,9 @@ def write_audit_pro_pdf(
         c.setFont(font_regular, size)
         c.setFillColor(colors.black)
         for segment in _wrap_text(text, 105):
-            ypos = ensure_space(ypos, 6 * mm)
             c.drawString(margin, ypos, segment)
-            ypos -= 5 * mm
+            ypos -= 5 * mm   # espace uniforme
+        ypos -= 5 * mm
         return ypos
 
     # Cover page
@@ -263,7 +263,7 @@ def write_audit_pro_pdf(
     y = draw_line(f"-Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
     y = draw_line(f"-Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
     y = draw_line(f"-Année de construction: {building.general.construction_year}", y)
-    y = draw_line("-Objectif : comparer différents scénarios de réhabilitation énergétique (énergie, coût, émissions de CO₂ et retour sur investissement).", y)
+    y = draw_line("-Objectif : comparer différents scénarios de réhabilitation énergétique (énergie, coût, émissions de CO2 et retour sur investissement).", y)
     y = draw_line("-Contenu : hypothèses de calcul, résultats comparatifs et recommandations hiérarchisées.", y)
     y = new_page()
 
@@ -334,6 +334,7 @@ def write_audit_pro_pdf(
     y -= 4 * mm
 
     # Prioritized recommendations
+    y -= 5 * mm
     y = draw_h2("3) Recommandations priorisées: ", y)
     recommendations = _build_prioritized_recommendations(ranked, scores)
     for idx, rec in enumerate(recommendations, start=1):
