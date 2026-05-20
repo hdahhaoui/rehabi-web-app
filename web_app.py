@@ -68,7 +68,7 @@ def api_simulate():
     pdf_generated = True
     audit_pdf_generated = True
     try:
-        write_pdf_report(str(out_dir / "report.pdf"), "Rapport de rehabilitation energetique", report_md)
+        write_pdf_report(str(out_dir / "report.pdf"), " Rapport de réhabilitation énergétique", report_md)
     except Exception:
         pdf_generated = False
     try:
