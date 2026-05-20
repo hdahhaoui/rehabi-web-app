@@ -110,10 +110,12 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
     except Exception:
         font_name = "Helvetica"
 
-    c.setFont(font_name, 14)
+    c.setFont(font_name, 20)
+    c.setFillColor(colors.HexColor("#0f4c81"))
     c.drawString(margin, y, title)
-    y -= 24
+    y -= 30
     c.setFont(font_name, 10)
+    c.setFillColor(colors.black)
 
     for raw_line in markdown_content.splitlines():
         line = raw_line.strip()
