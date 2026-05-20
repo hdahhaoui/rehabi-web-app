@@ -219,8 +219,8 @@ def write_audit_pro_pdf(
     c.setFillColor(colors.HexColor("#0f4c81"))
 
     c.drawCentredString(
-        width/2,
-        height - 90*mm,
+        margin,
+        height - 30 * mm,
         "RAPPORT D'AUDIT ENERGETIQUE"
         
     )
