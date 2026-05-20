@@ -175,6 +175,24 @@ def write_audit_pro_pdf(
     except Exception:
         font_regular = "Helvetica"
 
+    def draw_frame():
+        c.setStrokeColor(colors.HexColor("#0f4c81"))
+        c.setLineWidth(1)
+        c.rect(10, 10, width - 20, height - 20)
+
+    def draw_logo():
+        logo_path = "static/logo.png"
+
+        if Path(logo_path).exists():
+            c.drawImage(
+                logo_path,
+                margin,
+                height - 45 * mm,
+                width=35 * mm,
+                height=35 * mm,
+                preserveAspectRatio=True,
+                mask='auto'
+            )
     def new_page() -> float:
        c.showPage()
        draw_frame()  
@@ -209,6 +227,7 @@ def write_audit_pro_pdf(
         return ypos
 
     # Cover page
+    draw_frame()
     draw_logo()
     c.setFont(font_regular, 20)
     c.setFillColor(colors.HexColor("#0f4c81"))
@@ -319,21 +338,7 @@ def write_audit_pro_pdf(
     y = draw_line("Pour validation execution, completer avec devis entreprises, audit sur site et donnees meteo locales detaillees.", y)
 
     c.save()
-    def draw_logo():
-        if Path(logo_path).exists():
-            c.drawImage(
-                logo_path,
-                margin,
-                height - 45 * mm,
-                width=35 * mm,
-                height=35 * mm,
-                preserveAspectRatio=True,
-                mask='auto'
-            )
-def draw_frame():
-    c.setStrokeColor(colors.HexColor("#0f4c81"))
-    c.setLineWidth(1)
-    c.rect(10, 10, width - 20, height - 20)
+    
 
 def _build_prioritized_recommendations(
     ranked: List[ScenarioResults],
