@@ -81,6 +81,8 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
         c.setStrokeColor(colors.HexColor("#0f4c81"))
         c.setLineWidth(1)
         c.rect(10, 10, width - 20, height - 20, stroke=1, fill=0)
+        
+    draw_frame()
 
     # Register Unicode-friendly font fallback if present.
     try:
@@ -111,6 +113,7 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
                     y = height - margin
         if y < margin:
             c.showPage()
+            draw_frame()
             c.setFont(font_name, 10)
             y = height - margin
 
