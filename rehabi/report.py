@@ -339,7 +339,7 @@ def write_audit_pro_pdf(
     for idx, rec in enumerate(recommendations, start=1):
         y = draw_line(f"{idx}. {rec}", y)
         y -= 5 * mm
-
+    y -= 5 * mm
     y = draw_h2("4) Conclusion :", y)
     best = ranked[0] if ranked else None
     if best:
@@ -351,7 +351,7 @@ def write_audit_pro_pdf(
             y,
         )
     y = draw_line("Pour validation de l’exécution, compléter avec les devis des entreprises, un audit sur site et des données météorologiques locales détaillées.", y)
-    y -= 5 * mm
+    
     c.save()
     
 
