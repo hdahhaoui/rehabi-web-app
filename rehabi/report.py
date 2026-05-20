@@ -122,12 +122,12 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
         if line.startswith("#"):
             line = line.lstrip("#").strip()
         if not line:
-            y -= 8
+            y -= 14
         else:
             wrapped = _wrap_text(line, max_chars=110)
             for wline in wrapped:
                 c.drawString(margin, y, wline)
-                y -= 14
+                y -= 19
                 if y < margin:
                     c.showPage()
                     draw_frame_and_logo(c, width, height, margin, logo_path)
