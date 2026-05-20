@@ -70,7 +70,7 @@ def draw_frame_and_logo(c, width, height, margin, logo_path):
     # cadre
     c.setStrokeColor(colors.HexColor("#0f4c81"))
     c.setLineWidth(1)
-    c.rect(margin, margin, width - 2 * margin, height - 2 * margin)
+    c.rect(10, 10, width - 20, height - 20)
 
     # logo
     if Path(logo_path).exists():
