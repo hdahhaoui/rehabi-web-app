@@ -87,6 +87,7 @@ def draw_frame_and_logo(c, width, height, margin, logo_path):
 def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
     from pathlib import Path
     from reportlab.lib.pagesizes import A4
+    from reportlab.lib import colors
     from reportlab.pdfbase import pdfmetrics
     from reportlab.pdfbase.ttfonts import TTFont
     from reportlab.pdfgen import canvas
