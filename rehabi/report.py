@@ -296,7 +296,7 @@ def write_audit_pro_pdf(
 
     # Comparative table
     y = draw_h2("2)Tableau comparatif des scénarios:", y)
-    headers = ["Scenario", "Score/100", "Économies/an", "CO2 evit.", "ROI (ans)"]
+    headers = ["scénario", "Score/100", "Économies/an", "CO2 evit.", "ROI (ans)"]
     col_x = [margin, margin + 58 * mm, margin + 84 * mm, margin + 126 * mm, margin + 158 * mm]
     row_h = 8 * mm
 
