@@ -229,7 +229,6 @@ def write_audit_pro_pdf(
     c.setFillColor(colors.black)
 
    
-    )
     y = draw_line(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}", y)
     y = draw_line(f"Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
     y = draw_line(f"Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
