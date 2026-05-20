@@ -222,8 +222,11 @@ def write_audit_pro_pdf(
         width/2,
         height - 90*mm,
         "RAPPORT D'AUDIT ENERGETIQUE"
+        
     )
+    y = height - 110 * mm
     c.setFont(font_regular, 10)
+    c.setFillColor(colors.black)
 
     c.drawCentredString(
         width/2,
@@ -236,7 +239,6 @@ def write_audit_pro_pdf(
     y = draw_line(f"Annee de construction: {building.general.construction_year}", y)
     y = draw_line("Objectif: comparer des scenarios de rehabilitation (energie, cout, CO2, ROI).", y)
     y = draw_line("Contenu: hypotheses, resultats comparatifs et recommandations priorisees.", y)
-
     y = new_page()
 
     # Hypotheses section
