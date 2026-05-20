@@ -10,7 +10,7 @@ def _insulate_walls(building: BuildingInput) -> BuildingInput:
     envelope = replace(
         building.envelope,
         walls=EnvelopeElement(
-            material="Mur isole",
+            material="Mur isolé",
             thickness_m=max(building.envelope.walls.thickness_m, 0.3),
             u_value_w_m2k=min(building.envelope.walls.u_value_w_m2k, 0.3),
         ),
@@ -22,7 +22,7 @@ def _insulate_roof(building: BuildingInput) -> BuildingInput:
     envelope = replace(
         building.envelope,
         roof=EnvelopeElement(
-            material="Toiture isolee",
+            material="Toiture isolée",
             thickness_m=max(building.envelope.roof.thickness_m, 0.35),
             u_value_w_m2k=min(building.envelope.roof.u_value_w_m2k, 0.2),
         ),
@@ -34,7 +34,7 @@ def _replace_windows(building: BuildingInput) -> BuildingInput:
     envelope = replace(
         building.envelope,
         windows=EnvelopeElement(
-            material="Double/Triple vitrage performant",
+            material="Double / triple vitrage performant",
             thickness_m=max(building.envelope.windows.thickness_m, 0.024),
             u_value_w_m2k=min(building.envelope.windows.u_value_w_m2k, 1.3),
         ),
@@ -47,10 +47,10 @@ def _replace_windows(building: BuildingInput) -> BuildingInput:
 def _heat_pump(building: BuildingInput) -> BuildingInput:
     heating = replace(
         building.systems.heating,
-        system_type="Pompe a chaleur air/eau",
+        system_type="Pompe à chaleur air/eau",
         efficiency=max(building.systems.heating.efficiency, 3.2),
         nominal_power_kw=building.systems.heating.nominal_power_kw,
-        energy_carrier="electricity",
+        energy_carrier="Électricité",
     )
     systems = replace(building.systems, heating=heating)
     return replace(building, systems=systems)
@@ -67,9 +67,9 @@ def _global_combined(building: BuildingInput) -> BuildingInput:
 
 SCENARIO_FUNCTIONS: Dict[str, Callable[[BuildingInput], BuildingInput]] = {
     "Isolation des murs": _insulate_walls,
-    "isolation_toiture": _insulate_roof,
-    "remplacement_fenetres": _replace_windows,
-    "pac_chauffage": _heat_pump,
-    "renovation_globale": _global_combined,
+    "Isolation de la toiture": _insulate_roof,
+    "Remplacement des fenêtres": _replace_windows,
+    "Pompe à chaleur air/eau": _heat_pump,
+    "Rénovation globale": _global_combined,
 }
 
