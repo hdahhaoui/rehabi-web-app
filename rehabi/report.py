@@ -164,9 +164,6 @@ def write_audit_pro_pdf(
             preserveAspectRatio=True,
             mask='auto'
         )
-    from pathlib import Path
-
-    logo_path = "static/logo.png"
 
     try:
         pdfmetrics.registerFont(TTFont("DejaVu", "DejaVuSans.ttf"))
