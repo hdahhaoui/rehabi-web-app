@@ -152,21 +152,21 @@ def write_audit_pro_pdf(
     width, height = A4
     margin = 18 * mm
     y = height - margin
+    
     logo_path = "static/logo.png"
 
-def draw_logo():
-    logo_path = "static/logo.png"
+    def draw_logo():
 
-    if Path(logo_path).exists():
-        c.drawImage(
-            logo_path,
-            margin,                 # gauche propre
-            height - 35 * mm,       # haut
-            width=35 * mm,
-            height=35 * mm,
-            preserveAspectRatio=True,
-            mask='auto'
-        )
+        if Path(logo_path).exists():
+            c.drawImage(
+                logo_path,
+                margin,                 # gauche propre
+                height - 35 * mm,       # haut
+                width=35 * mm,
+                height=35 * mm,
+                preserveAspectRatio=True,
+                mask='auto'
+            )
 
     try:
         pdfmetrics.registerFont(TTFont("DejaVu", "DejaVuSans.ttf"))
