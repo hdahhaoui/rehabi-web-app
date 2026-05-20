@@ -160,7 +160,7 @@ def write_audit_pro_pdf(
         if Path(logo_path).exists():
             c.drawImage(
                 logo_path,
-                margin,                 # gauche propre
+                 width - margin - 35 * mm,                 # gauche propre
                 height - 35 * mm,       # haut
                 width=35 * mm,
                 height=35 * mm,
