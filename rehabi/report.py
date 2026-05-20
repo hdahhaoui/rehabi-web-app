@@ -263,7 +263,7 @@ def write_audit_pro_pdf(
     y = draw_line(f"Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
     y = draw_line(f"Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
     y = draw_line(f"Année de construction: {building.general.construction_year}", y)
-    y = draw_line("comparer différents scénarios de réhabilitation énergétique (énergie, coût, émissions de CO₂ et retour sur investissement).", y)
+    y = draw_line(" Objectif : comparer différents scénarios de réhabilitation énergétique (énergie, coût, émissions de CO₂ et retour sur investissement).", y)
     y = draw_line("Contenu : hypothèses de calcul, résultats comparatifs et recommandations hiérarchisées.", y)
     y = new_page()
 
