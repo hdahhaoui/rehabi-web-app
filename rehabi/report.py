@@ -61,9 +61,31 @@ def write_report(path: str, content: str) -> None:
     output = Path(path)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(content, encoding="utf-8")
+    
+def draw_frame_and_logo(c, width, height, margin, logo_path):
+    from pathlib import Path
+    from reportlab.lib import colors
+    from reportlab.lib.units import mm
 
+    # cadre
+    c.setStrokeColor(colors.HexColor("#0f4c81"))
+    c.setLineWidth(1)
+    c.rect(margin, margin, width - 2 * margin, height - 2 * margin)
+
+    # logo
+    if Path(logo_path).exists():
+        c.drawImage(
+            logo_path,
+            width - margin - 15 * mm,
+            height - margin - 15 * mm,
+            width=12 * mm,
+            height=12 * mm,
+            preserveAspectRatio=True,
+            mask='auto'
+        )
 
 def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
+    from pathlib import Path
     from reportlab.lib.pagesizes import A4
     from reportlab.pdfbase import pdfmetrics
     from reportlab.pdfbase.ttfonts import TTFont
@@ -76,13 +98,10 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
     width, height = A4
     margin = 40
     y = height - margin
-
-    def draw_frame():
-        c.setStrokeColor(colors.HexColor("#0f4c81"))
-        c.setLineWidth(1)
-        c.rect(10, 10, width - 20, height - 20, stroke=1, fill=0)
-        
-    draw_frame()
+    logo_path = "static/logo.png"
+    
+    draw_frame_and_logo(c, width, height, margin, logo_path)
+    
 
     # Register Unicode-friendly font fallback if present.
     try:
@@ -109,11 +128,12 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
                 y -= 14
                 if y < margin:
                     c.showPage()
+                    draw_frame_and_logo(c, width, height, margin, logo_path)
                     c.setFont(font_name, 10)
                     y = height - margin
         if y < margin:
             c.showPage()
-            draw_frame()
+            draw_frame_and_logo(c, width, height, margin, logo_path)
             c.setFont(font_name, 10)
             y = height - margin
 
