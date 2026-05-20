@@ -152,7 +152,6 @@ def write_audit_pro_pdf(
     width, height = A4
     margin = 18 * mm
     y = height - margin
-    draw_frame()
     logo_path = "static/logo.png"
 
     if Path(logo_path).exists():
