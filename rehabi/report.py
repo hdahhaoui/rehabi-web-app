@@ -21,7 +21,7 @@ def generate_markdown_report(building: BuildingInput, results: List[ScenarioResu
     lines: List[str] = []
     currency = building.economics.currency
     lines.append("")
-    lines.append("## Données bâtiment")
+    lines.append("## Données du bâtiment:")
     lines.append(f"- Type: {building.general.building_type}")
     lines.append(f"- Année de construction: {building.general.construction_year}")
     lines.append(f"- Wilaya: {building.general.city}")
