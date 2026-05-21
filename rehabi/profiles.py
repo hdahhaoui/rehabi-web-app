@@ -4,6 +4,12 @@ from dataclasses import replace
 
 from rehabi.models import BuildingInput, EnvelopeElement
 
+WINDOW_TYPES = {
+    "simple": 5.8,
+    "double_standard": 1.8,
+    "double_performant": 1.1,
+}
+
 
 def _period_from_year(year: int) -> str:
     if year < 1980:
