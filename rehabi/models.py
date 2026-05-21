@@ -98,6 +98,7 @@ class BuildingInput:
     systems: Systems
     occupancy: Occupancy
     economics: Economics
+    window_type: Optional[str] = None
 
 
 @dataclass
