@@ -99,7 +99,7 @@ class BuildingInput:
     occupancy: Occupancy
     economics: Economics
     
-    window_type=data.get("window_type")
+    window_type: Optional[str] = None
 
 
 @dataclass
