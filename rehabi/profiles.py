@@ -35,6 +35,10 @@ def apply_profile_defaults(building: BuildingInput) -> BuildingInput:
     defaults = PROFILE_DEFAULTS.get((btype, period))
     if not defaults:
         return building
+    window_type = getattr(building, "window_type", "double_standard")
+    u_window = defaults["u_window"]
+    if window_type in WINDOW_TYPES:
+        u_window = WINDOW_TYPES[window_type]
 
     envelope = replace(
         building.envelope,
@@ -56,7 +60,7 @@ def apply_profile_defaults(building: BuildingInput) -> BuildingInput:
         windows=EnvelopeElement(
             material=building.envelope.windows.material,
             thickness_m=building.envelope.windows.thickness_m,
-            u_value_w_m2k=defaults["u_window"],
+            u_value_w_m2k=u_window,
         ),
     )
     ventilation = replace(building.ventilation, air_change_rate_ach=defaults["ach"])
