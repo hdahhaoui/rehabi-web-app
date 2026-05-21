@@ -113,5 +113,6 @@ def build_model(data: Dict[str, Any]) -> BuildingInput:
             renovation_cost_eur={k: float(v) for k, v in eco.get("renovation_cost_eur", {}).items()},
             subsidies_eur={k: float(v) for k, v in eco.get("subsidies_eur", {}).items()},
         ),
+        window_type=data.get("window_type"),
     )
     return model
