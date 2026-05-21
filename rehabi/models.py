@@ -98,7 +98,8 @@ class BuildingInput:
     systems: Systems
     occupancy: Occupancy
     economics: Economics
-    window_type: str = "double_standard"
+    
+    window_type=data.get("window_type")
 
 
 @dataclass
