@@ -128,7 +128,7 @@ def compare_with_scenario(building: BuildingInput, scenario_name: str) -> Scenar
 
     notes: List[str] = []
     if payback is None and net_investment > 0:
-        notes.append("Retour sur investissement non definissable (economies annuelles <= 0).")
+        notes.append("Retour sur investissement non défini (économies annuelles nulles ou négatives).")
 
     return ScenarioResults(
         scenario_name=scenario_name,
