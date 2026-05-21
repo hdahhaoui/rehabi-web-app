@@ -46,6 +46,13 @@
     <section class="card" id="step2">
       <h2>Étape 2 : Paramètres techniques et énergétiques</h2>
       <div class="grid">
+        <label>Type de vitrage
+          <select id="window_type">
+            <option value="simple">Simple vitrage</option>
+            <option value="double_standard">Double vitrage standard</option>
+            <option value="double_performant">Double vitrage performant</option>
+          </select>
+        </label>
         <label>Pondération énergie
           <input id="w_energy" type="number" step="0.05" value="0.25">
         </label>
@@ -113,6 +120,7 @@
         resultsBox.innerHTML = "JSON invalide. Corrigez le contenu.";
         return;
       }
+      payload.window_type = document.getElementById("window_type").value;
       payload.multicriteria_weights = {
         energy: Number(document.getElementById("w_energy").value || 0.25),
         cost: Number(document.getElementById("w_cost").value || 0.35),
