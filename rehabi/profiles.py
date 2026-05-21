@@ -35,12 +35,9 @@ def apply_profile_defaults(building: BuildingInput) -> BuildingInput:
     defaults = PROFILE_DEFAULTS.get((btype, period))
     if not defaults:
         return building
-    window_type = (getattr(building, "window_type", None) or "double_standard").strip()
+    window_type = (building.window_type or "double_standard").strip().lower()
 
-    u_window = defaults["u_window"]
-
-    if window_type in WINDOW_TYPES:
-        u_window = WINDOW_TYPES[window_type]
+    u_window = WINDOW_TYPES.get(window_type, defaults["u_window"])
 
     envelope = replace(
         building.envelope,
