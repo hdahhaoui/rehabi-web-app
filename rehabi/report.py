@@ -131,6 +131,7 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
                 y -= 19
                 if y < margin:
                     c.showPage()
+                    draw_frame_only(c, width, height)
                     c.setFont(font_name, 10)
                     y = height - margin
         if y < margin:
