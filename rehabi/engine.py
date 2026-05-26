@@ -28,8 +28,6 @@ def _estimate_energy_class(consumption_kwh_m2: float) -> str:
 
 
 def calculate_thermal_performance(building: BuildingInput) -> ThermalResults:
-    from rehabi.profiles import apply_profile_defaults
-    building = apply_profile_defaults(building)
     
     climate = get_climate(building.general.city, building.general.climate_zone, building.general.country)
 
