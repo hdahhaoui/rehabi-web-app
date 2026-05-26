@@ -114,7 +114,7 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
     c.setFillColor(colors.HexColor("#0f4c81"))
     c.drawString(margin, y, title)
     y -= 30
-    c.setFont(font_name, 10)
+    c.setFont(font_name, 20)
     c.setFillColor(colors.black)
 
     for raw_line in markdown_content.splitlines():
@@ -220,7 +220,7 @@ def write_audit_pro_pdf(
         return ypos
 
     def draw_title(text: str, ypos: float) -> float:
-        c.setFont(font_regular, 18)
+        c.setFont(font_regular, 20)
         c.setFillColor(colors.HexColor("#0f4c81"))
         c.drawString(margin, ypos, text)
         return ypos - 12 * mm
