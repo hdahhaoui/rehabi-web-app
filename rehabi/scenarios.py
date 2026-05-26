@@ -61,7 +61,7 @@ def _global_combined(building: BuildingInput) -> BuildingInput:
     b = _insulate_roof(b)
     b = _replace_windows(b)
     b = _heat_pump(b)
-    ventilation = replace(b.ventilation, air_change_rate_ach=max(0.2, b.ventilation.air_change_rate_ach * 0.85))
+    ventilation = replace(b.ventilation, air_change_rate_ach=max(0.2, b.ventilation.air_change_rate_ach * 0.45))
     return replace(b, ventilation=ventilation)
 
 
