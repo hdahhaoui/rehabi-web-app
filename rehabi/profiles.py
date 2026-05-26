@@ -4,11 +4,6 @@ from dataclasses import replace
 
 from rehabi.models import BuildingInput, EnvelopeElement
 
-WINDOW_TYPES = {
-    "simple": 5.8,
-    "double_standard": 1.8,
-    "double_performant": 1.1,
-}
 
 
 def _period_from_year(year: int) -> str:
@@ -35,9 +30,8 @@ def apply_profile_defaults(building: BuildingInput) -> BuildingInput:
     defaults = PROFILE_DEFAULTS.get((btype, period))
     if not defaults:
         return building
-    window_type = (building.window_type or "double_standard").strip().lower()
-
-    u_window = WINDOW_TYPES.get(window_type, defaults["u_window"])
+        
+    u_window = defaults["u_window"]
 
     envelope = replace(
         building.envelope,
