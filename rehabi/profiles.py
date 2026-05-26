@@ -17,10 +17,10 @@ def _period_from_year(year: int) -> str:
 PROFILE_DEFAULTS = {
     ("maison", "before_1980"): {"u_wall": 1.3, "u_roof": 0.9, "u_floor": 0.9, "u_window": 4.0, "ach": 1.0},
     ("maison", "1980_2000"): {"u_wall": 0.8, "u_roof": 0.45, "u_floor": 0.6, "u_window": 2.8, "ach": 0.7},
-    ("maison", "recent"): {"u_wall": 0.35, "u_roof": 0.2, "u_floor": 0.3, "u_window": 1.4, "ach": 0.4},
+    ("maison", "recent"): {"u_wall": 0.6, "u_roof": 0.45, "u_floor": 0.5, "u_window": 2.6, "ach": 0.6},
     ("appartement", "before_1980"): {"u_wall": 1.1, "u_roof": 0.8, "u_floor": 0.8, "u_window": 3.5, "ach": 0.8},
     ("appartement", "1980_2000"): {"u_wall": 0.7, "u_roof": 0.35, "u_floor": 0.45, "u_window": 2.4, "ach": 0.55},
-    ("appartement", "recent"): {"u_wall": 0.3, "u_roof": 0.18, "u_floor": 0.25, "u_window": 1.3, "ach": 0.35},
+    ("appartement", "recent"): {"u_wall": 0.5, "u_roof": 0.35, "u_floor": 0.3, "u_window": 2.2, "ach": 0.6},
 }
 
 
