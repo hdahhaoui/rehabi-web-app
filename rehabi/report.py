@@ -252,7 +252,6 @@ def write_audit_pro_pdf(
 
     # Cover page
     draw_frame()
-    draw_logo()
     c.setFont(font_regular, 20)
     c.setFillColor(colors.HexColor("#0f4c81"))
 
