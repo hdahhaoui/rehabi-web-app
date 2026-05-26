@@ -12,7 +12,7 @@ def _insulate_walls(building: BuildingInput) -> BuildingInput:
         walls=EnvelopeElement(
             material="Mur isolé",
             thickness_m=max(building.envelope.walls.thickness_m, 0.3),
-            u_value_w_m2k=min(building.envelope.walls.u_value_w_m2k * 0.4, 0.3),
+            u_value_w_m2k=min(building.envelope.walls.u_value_w_m2k * 0.3, 0.3),
         ),
     )
     return replace(building, envelope=envelope)
@@ -24,7 +24,7 @@ def _insulate_roof(building: BuildingInput) -> BuildingInput:
         roof=EnvelopeElement(
             material="Toiture isolée",
             thickness_m=max(building.envelope.roof.thickness_m, 0.35),
-            u_value_w_m2k=min(building.envelope.roof.u_value_w_m2k * 0.35, 0.2),
+            u_value_w_m2k=min(building.envelope.roof.u_value_w_m2k * 0.25, 0.2),
         ),
     )
     return replace(building, envelope=envelope)
@@ -36,11 +36,11 @@ def _replace_windows(building: BuildingInput) -> BuildingInput:
         windows=EnvelopeElement(
             material="Double / triple vitrage performant",
             thickness_m=max(building.envelope.windows.thickness_m, 0.024),
-            u_value_w_m2k=min(building.envelope.windows.u_value_w_m2k * 0.5, 1.3),
+            u_value_w_m2k=min(building.envelope.windows.u_value_w_m2k * 0.4, 1.3),
         ),
         window_solar_factor_g=min(building.envelope.window_solar_factor_g, 0.5),
     )
-    ventilation = replace(building.ventilation, air_change_rate_ach=max(0.25, building.ventilation.air_change_rate_ach * 0.6))
+    ventilation = replace(building.ventilation, air_change_rate_ach=max(0.25, building.ventilation.air_change_rate_ach * 0.45))
     return replace(building, envelope=envelope, ventilation=ventilation)
 
 
