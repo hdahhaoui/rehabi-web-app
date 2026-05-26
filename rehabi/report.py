@@ -219,7 +219,6 @@ def write_audit_pro_pdf(
     def new_page() -> float:
         c.showPage()
         draw_frame()
-        draw_logo()
         return height - margin
 
     def ensure_space(ypos: float, needed: float) -> float:
@@ -252,6 +251,7 @@ def write_audit_pro_pdf(
 
     # Cover page
     draw_frame()
+    draw_logo()
     c.setFont(font_regular, 20)
     c.setFillColor(colors.HexColor("#0f4c81"))
 
