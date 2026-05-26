@@ -194,7 +194,7 @@ def write_audit_pro_pdf(
                 width - margin - 15 * mm,
                 height - margin - 15 * mm,
                 width=12 * mm,
-                height=12 * mm,,
+                height=12 * mm,
                 preserveAspectRatio=True,
                 mask='auto'
             )
