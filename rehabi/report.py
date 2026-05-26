@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import List
+from datetime import datetime, timedelta
 
 from rehabi.decision import compute_multicriteria_scores
 from rehabi.models import BuildingInput, ScenarioResults
@@ -251,7 +252,7 @@ def write_audit_pro_pdf(
     c.drawCentredString(
         width/2,
         height - 90*mm,
-        "RAPPORT D'AUDIT ENERGETIQUE"
+        "RAPPORT D'AUDIT ÉNERGÉTIQUE"
         
     )
     y = height - 110 * mm
@@ -259,8 +260,8 @@ def write_audit_pro_pdf(
     c.setFillColor(colors.black)
 
    
-    y = draw_line(f"-Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}", y)
-    y = draw_line(f"-Projet: {building.general.building_type} - {building.general.city} ({building.general.country})", y)
+    y = draw_line(f"-Date: {(datetime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M')}", y)
+    y = draw_line(f"-Projet: {building.general.building_type} - {building.general.city}", y)
     y = draw_line(f"-Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2", y)
     y = draw_line(f"-Année de construction: {building.general.construction_year}", y)
     y = draw_line("-Objectif : comparer différents scénarios de réhabilitation énergétique (énergie, coût, émissions de CO2 et retour sur investissement).", y)
