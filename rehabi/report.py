@@ -100,8 +100,7 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
     margin = 40
     y = height - margin
     logo_path = "static/logo.png"
-    
-    draw_frame_and_logo(c, width, height, margin, logo_path)
+
     
 
     # Register Unicode-friendly font fallback if present.
