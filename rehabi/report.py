@@ -135,7 +135,7 @@ def write_pdf_report(path: str, title: str, markdown_content: str) -> None:
                     y = height - margin
         if y < margin:
             c.showPage()
-            draw_frame_and_logo(c, width, height, margin, logo_path)
+            draw_frame_only(c, width, height)
             c.setFont(font_name, 10)
             y = height - margin
 
@@ -158,6 +158,12 @@ def _wrap_text(text: str, max_chars: int) -> List[str]:
     if cur:
         lines.append(cur)
     return lines
+    
+def draw_frame_only(c, width, height):
+    from reportlab.lib import colors
+    c.setStrokeColor(colors.HexColor("#0f4c81"))
+    c.setLineWidth(1)
+    c.rect(10, 10, width - 20, height - 20)
 
 
 def write_audit_pro_pdf(
