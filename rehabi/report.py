@@ -51,7 +51,7 @@ def generate_markdown_report(building: BuildingInput, results: List[ScenarioResu
         lines.append(f"- Investissement net: {_fmt(r.net_investment_eur, 0)} {currency}")
         if r.payback_years is None:
             if r.annual_savings_eur <= 0:
-               lines.append("- Temps de retour sur investissement: Non rentable dans les conditions tarifaires actuelles")
+               lines.append("- Temps de retour sur investissement: Non rentable dans les conditions tarifaires actuelles.")
             else:
                 lines.append("- Temps de retour sur investissement: Non calculable")
         else:
