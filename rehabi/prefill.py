@@ -73,9 +73,9 @@ def prefill_defaults(building_type: str, year: int, wilaya: str, area_m2: float)
             "volume_m3": round(volume, 1),
         },
         "envelope": {
-            "walls": {"material": "Maconnerie", "thickness_m": 0.2, "u_value_w_m2k": profile["u_wall"]},
+            "walls": {"material": "Maçonnerie", "thickness_m": 0.2, "u_value_w_m2k": profile["u_wall"]},
             "roof": {"material": "Toiture terrasse", "thickness_m": 0.2, "u_value_w_m2k": profile["u_roof"]},
-            "floor": {"material": "Dalle beton", "thickness_m": 0.2, "u_value_w_m2k": profile["u_floor"]},
+            "floor": {"material": "Dalle béton", "thickness_m": 0.2, "u_value_w_m2k": profile["u_floor"]},
             "windows": {"material": "Vitrage courant", "thickness_m": 0.006, "u_value_w_m2k": profile["u_window"]},
             "window_solar_factor_g": default_window_g,
         },
@@ -86,7 +86,7 @@ def prefill_defaults(building_type: str, year: int, wilaya: str, area_m2: float)
         },
         "systems": {
             "heating": {
-                "system_type": "Chaudiere gaz",
+                "system_type": "Chaudière gaz",
                 "efficiency": 0.85,
                 "nominal_power_kw": 20.0,
                 "energy_carrier": "gas",
