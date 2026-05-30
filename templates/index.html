@@ -155,7 +155,14 @@
           <p>Coût énergétique (avant/après): ${r.baseline.annual_cost_eur.toFixed(0)} / ${r.renovated.annual_cost_eur.toFixed(0)} ${currency}/an</p>
           <p>Émissions de CO2 (avant/après): ${r.baseline.annual_co2_kg.toFixed(0)} / ${r.renovated.annual_co2_kg.toFixed(0)} kgCO2/an</p>
           <p>Économies annuelles: ${r.annual_savings_eur.toFixed(0)} ${currency}/an</p>
-          <p>Temps de retour sur investissement (ROI): ${r.payback_years ? r.payback_years.toFixed(1) + " ans" : "N/A"}</p>
+          <p> 
+            Temps de retour sur investissement (ROI):
+            ${r.payback_years == null
+              ? "Non rentable dans les conditions tarifaires actuelles"
+              : r.payback_years > 30
+                ? r.payback_years.toFixed(1) + " ans (très long)"
+                : r.payback_years.toFixed(1) + " ans"}
+          </p>
         </article>
       `).join("");
     });
