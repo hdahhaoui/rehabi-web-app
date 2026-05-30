@@ -50,7 +50,7 @@ def _heat_pump(building: BuildingInput) -> BuildingInput:
         system_type="Pompe à chaleur air/eau",
         efficiency=max(building.systems.heating.efficiency, 3.2),
         nominal_power_kw=building.systems.heating.nominal_power_kw,
-        energy_carrier="Électricité",
+        energy_carrier="electricity",
     )
     systems = replace(building.systems, heating=heating)
     return replace(building, systems=systems)
