@@ -158,10 +158,8 @@
           <p> 
             Temps de retour sur investissement (ROI):
             ${r.payback_years == null
-              ? "Non rentable dans les conditions tarifaires actuelles"
-              : r.payback_years > 30
-                ? r.payback_years.toFixed(1) + " ans (très long)"
-                : r.payback_years.toFixed(1) + " ans"}
+               ? r.payback_years.toFixed(1) + " ans"
+               : "Non rentable dans les conditions tarifaires actuelles"}
           </p>
         </article>
       `).join("");
