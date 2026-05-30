@@ -157,7 +157,7 @@
           <p>Économies annuelles: ${r.annual_savings_eur.toFixed(0)} ${currency}/an</p>
           <p> 
             Temps de retour sur investissement (ROI):
-            ${r.payback_years == null
+            ${r.payback_years != null
                ? r.payback_years.toFixed(1) + " ans"
                : "Non rentable dans les conditions tarifaires actuelles"}
           </p>
