@@ -49,13 +49,14 @@ def generate_markdown_report(building: BuildingInput, results: List[ScenarioResu
         lines.append(f"- Gain énergétique: {_fmt(r.annual_savings_kwh, 0)} kWh/an")
         lines.append(f"- Réduction des émissions de CO2: {_fmt(r.annual_co2_reduction_kg, 0)} kgCO2/an")
         lines.append(f"- Investissement net: {_fmt(r.net_investment_eur, 0)} {currency}")
-       if r.payback_years is None:
-           if r.annual_savings_eur <= 0:
+        if r.payback_years is None:
+            if r.annual_savings_eur <= 0:
                lines.append("- Temps de retour sur investissement: Non rentable dans les conditions tarifaires actuelles")
-           else:
-               lines.append("- Temps de retour sur investissement: Non calculable")
-       else:
-           lines.append(f"- Temps de retour sur investissement: {_fmt(r.payback_years, 1)} ans")
+            else:
+                lines.append("- Temps de retour sur investissement: Non calculable")
+        else:
+            lines.append(f"- Temps de retour sur investissement: {_fmt(r.payback_years, 1)} ans")
+           
         if r.notes:
             lines.append(f"- Notes: {'; '.join(r.notes)}")
         lines.append("")
