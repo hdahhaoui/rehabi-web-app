@@ -123,12 +123,10 @@ def compare_with_scenario(building: BuildingInput, scenario_name: str) -> Scenar
     annual_co2_reduction_kg = baseline.annual_co2_kg - renovated.annual_co2_kg
 
     renovation_cost = float(building.economics.renovation_cost_eur.get(scenario_name, 0.0))
-    subsidies = float(building.economics.subsidies_eur.get(scenario_name, 0.0))
-    net_investment = max(0.0, renovation_cost - subsidies)
-    payback = (net_investment / annual_savings_eur) if annual_savings_eur > 0 else None
+    payback = (renovation_cost / annual_savings_eur) if annual_savings_eur > 0 else None
 
     notes: List[str] = []
-    if payback is None and net_investment > 0:
+    if payback is None and renovation_cost > 0:
         notes.append("Retour sur investissement non défini (économies annuelles nulles ou négatives).")
 
     return ScenarioResults(
@@ -139,8 +137,6 @@ def compare_with_scenario(building: BuildingInput, scenario_name: str) -> Scenar
         annual_savings_eur=annual_savings_eur,
         annual_co2_reduction_kg=annual_co2_reduction_kg,
         renovation_cost_eur=renovation_cost,
-        subsidies_eur=subsidies,
-        net_investment_eur=net_investment,
         payback_years=payback,
         notes=notes,
     )
@@ -160,8 +156,6 @@ def scenario_to_dict(result: ScenarioResults) -> Dict[str, object]:
         "annual_savings_eur": result.annual_savings_eur,
         "annual_co2_reduction_kg": result.annual_co2_reduction_kg,
         "renovation_cost_eur": result.renovation_cost_eur,
-        "subsidies_eur": result.subsidies_eur,
-        "net_investment_eur": result.net_investment_eur,
         "payback_years": result.payback_years,
         "notes": result.notes,
     }
