@@ -376,6 +376,8 @@ def _build_prioritized_recommendations(
 ) -> List[str]:
     recs: List[str] = []
     
+    currency = building.economics.currency
+    
     all_scores = [
         scores[r.scenario_name]["total_score_100"]
         for r in ranked
@@ -412,7 +414,7 @@ def _build_prioritized_recommendations(
         
         recs.append(
             f"{label}: {r.scenario_name} - score {total_score:.1f}/100, "
-            f"économie {r.annual_savings_eur:.0f} {building.economics.currency}/an, "
+            f"économie {r.annual_savings_eur:.0f} {currency}/an,
             f"confort été {comfort:.1f}/100."
         )
     return recs[:5]
