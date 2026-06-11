@@ -137,6 +137,7 @@ def compare_with_scenario(building: BuildingInput, scenario_name: str) -> Scenar
         annual_savings_eur=annual_savings_eur,
         annual_co2_reduction_kg=annual_co2_reduction_kg,
         renovation_cost_eur=renovation_cost,
+        net_investment_eur=renovation_cost,
         payback_years=payback,
         notes=notes,
     )
