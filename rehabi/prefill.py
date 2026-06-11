@@ -117,4 +117,5 @@ def prefill_defaults(building_type: str, year: int, wilaya: str, area_m2: float)
                 "Rénovation globale": area_m2 * 15000,
            
              },
-        }
+        },
+  }  
