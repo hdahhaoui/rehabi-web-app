@@ -27,7 +27,7 @@ def generate_markdown_report(building: BuildingInput, results: List[ScenarioResu
     lines.append(f"- Année de construction: {building.general.construction_year}")
     lines.append(f"- Wilaya: {building.general.city}")
     lines.append(f"- Surface habitable: {_fmt(building.general.habitable_area_m2, 0)} m2")
-    lines.append(f"- Volume: {_fmt(building.geometry.volume_m3 or 0.0, 0)} m3 (0 si auto-calcule)")
+    lines.append(f"- Volume: {_fmt(building.geometry.volume_m3 or 0.0, 0)} m3 ")
     lines.append("")
     lines.append("## Résultats par scénario:")
     lines.append("")
@@ -365,7 +365,7 @@ def write_audit_pro_pdf(
         y = draw_line(
             f"Scénario prioritaire recommandé: {best.scenario_name} (score {best_score:.1f}/100, ROI {best.payback_years:.1f} ans, economie {_fmt(best.annual_savings_eur,0)} {building.economics.currency}/an)."
             if best.payback_years is not None
-            else f"Scénario énergétiquement pertinent: {best.scenario_name} (score {best_score:.1f}/100, ROI non definissable).",
+            else f"Scénario énergétiquement pertinent: {best.scenario_name} (score {best_score:.1f}/100, ROI non calculé (données d’investissement insuffisantes)).",
             y,
         )
     y = draw_line("Pour validation de l’exécution, compléter avec les devis des entreprises, un audit sur site et des données météorologiques locales détaillées.", y)
