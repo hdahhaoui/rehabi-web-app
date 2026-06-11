@@ -350,13 +350,16 @@ def write_audit_pro_pdf(
     # Prioritized recommendations
     y -= 5 * mm
     y = draw_h2("3) Recommandations priorisées: ", y)
-    recommendations = _build_prioritized_recommendations(ranked, scores)
+    recommendations = _build_prioritized_recommendations(ranked, scores, building)
     for idx, rec in enumerate(recommendations, start=1):
         y = draw_line(f"{idx}. {rec}", y)
         
     y -= 5 * mm
     y = draw_h2("4) Conclusion :", y)
-    best = ranked[0] if ranked else None
+    best = max(
+        ranked,
+        key=lambda r: scores[r.scenario_name]["total_score_100"]
+    ) if ranked else None
     if best:
         best_score = scores[best.scenario_name]["total_score_100"]
         y = draw_line(
