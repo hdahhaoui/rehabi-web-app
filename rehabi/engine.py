@@ -156,6 +156,7 @@ def scenario_to_dict(result: ScenarioResults) -> Dict[str, object]:
         "annual_savings_eur": result.annual_savings_eur,
         "annual_co2_reduction_kg": result.annual_co2_reduction_kg,
         "renovation_cost_eur": result.renovation_cost_eur,
+        "net_investment_eur": result.renovation_cost_eur,
         "payback_years": result.payback_years,
         "notes": result.notes,
     }
