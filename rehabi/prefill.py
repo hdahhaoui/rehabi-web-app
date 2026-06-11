@@ -116,5 +116,5 @@ def prefill_defaults(building_type: str, year: int, wilaya: str, area_m2: float)
                 "Pompe à chaleur air/eau": 1300000 + (volume_m3 * 800),
                 "Rénovation globale": area_m2 * 15000,
            
-            },
+             },
         }
