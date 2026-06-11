@@ -375,24 +375,43 @@ def _build_prioritized_recommendations(
     scores: dict[str, dict[str, float]],
 ) -> List[str]:
     recs: List[str] = []
+    
+    all_scores = [
+        scores[r.scenario_name]["total_score_100"]
+        for r in ranked
+        if r.scenario_name in scores
+    ]
+    
+    if not all_scores:
+        return ["Aucune priorité claire."]
+        
+    max_score = max(all_scores)
+    min_score = min(all_scores)
+
+    def classify(score: float) -> str:
+        if max_score == min_score:
+            return "Priorité élevée"
+            
+        if score >= max_score - 10:
+            return "Priorité élevée"
+            
+        elif score >= (max_score + min_score) / 2:
+            return "Priorité moyenne"
+        else:
+            return "Priorité faible"
+            
     for r in ranked:
         if r.annual_savings_eur <= 0:
             continue
+            
         s = scores.get(r.scenario_name, {})
         total_score = s.get("total_score_100", 0.0)
         comfort = s.get("summer_comfort_score_100", 0.0)
-        if r.payback_years is not None and r.payback_years <= 7:
-            recs.append(
-                f"Priorité élevée: {r.scenario_name} - score {total_score:.1f}/100, ROI court ({r.payback_years:.1f} ans), confort ete {comfort:.1f}/100."
-            )
-        elif r.payback_years is not None and r.payback_years <= 12:
-            recs.append(
-                f"Priorité moyenne: {r.scenario_name} - score {total_score:.1f}/100, ROI acceptable ({r.payback_years:.1f} ans)."
-            )
-        else:
-            recs.append(
-                f"Priorité faible: {r.scenario_name} - score {total_score:.1f}/100, gains techniques interessants mais ROI long."
-            )
-    if not recs:
-        recs.append("Aucune priorité claire : vérifier les hypothèses relatives au prix de l’énergie, au coût des travaux et aux performances réelles.")
+        
+        label = classify(total_score)
+        
+        recs.append(
+            f"{label}: {r.scenario_name} - score {total_score:.1f}/100, "
+            f"économie {r.annual_savings_eur:.0f} €/an, confort été {comfort:.1f}/100."
+        )
     return recs[:5]
