@@ -414,7 +414,7 @@ def _build_prioritized_recommendations(
         
         recs.append(
             f"{label}: {r.scenario_name} - score {total_score:.1f}/100, "
-            f"économie {r.annual_savings_eur:.0f} {currency}/an,
+            f"économie {r.annual_savings_eur:.0f} {currency}/an, "
             f"confort été {comfort:.1f}/100."
         )
     return recs[:5]
