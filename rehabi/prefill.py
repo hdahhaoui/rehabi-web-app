@@ -112,16 +112,9 @@ def prefill_defaults(building_type: str, year: int, wilaya: str, area_m2: float)
             "renovation_cost_eur": {
                 "Isolation des murs": area_m2 * 7000,
                 "Isolation de la toiture": area_m2 * 4500,
-                "Remplacement des fenêtres": area_m2 * 7500,
-                "Pompe à chaleur air/eau": area_m2 * 8500,
-                "Rénovation globale": area_m2 * 20000,
+                "Remplacement des fenêtres": window_area_m2 * 60000,
+                "Pompe à chaleur air/eau": 1300000 + (volume_m3 * 800),
+                "Rénovation globale": area_m2 * 15000,
+           
             },
-            "subsidies_eur": {
-                "Isolation des murs": area_m2 * 1500,
-                "Isolation de la toiture": area_m2 * 900,
-                "Remplacement des fenêtres": area_m2 * 1000,
-                "Pompe à chaleur air/eau": area_m2 * 1600,
-                "Rénovation globale": area_m2 * 4500,
-            },
-        },
-    }
+        }
