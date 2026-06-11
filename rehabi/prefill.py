@@ -113,7 +113,7 @@ def prefill_defaults(building_type: str, year: int, wilaya: str, area_m2: float)
                 "Isolation des murs": area_m2 * 7000,
                 "Isolation de la toiture": area_m2 * 4500,
                 "Remplacement des fenêtres": window_area_m2 * 60000,
-                "Pompe à chaleur air/eau": 1300000 + (volume_m3 * 800),
+                "Pompe à chaleur air/eau": 1300000 + (volume * 800),
                 "Rénovation globale": area_m2 * 15000,
            
              },
