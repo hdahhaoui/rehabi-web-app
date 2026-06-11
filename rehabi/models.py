@@ -86,7 +86,6 @@ class Economics:
     co2_factor_kg_kwh: Dict[str, float]
     currency: str = "EUR"
     renovation_cost_eur: Dict[str, float] = field(default_factory=dict)
-    subsidies_eur: Dict[str, float] = field(default_factory=dict)
 
 
 @dataclass
@@ -123,7 +122,6 @@ class ScenarioResults:
     annual_savings_eur: float
     annual_co2_reduction_kg: float
     renovation_cost_eur: float
-    subsidies_eur: float
     net_investment_eur: float
     payback_years: Optional[float]
     notes: List[str] = field(default_factory=list)
