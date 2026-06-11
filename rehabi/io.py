@@ -111,7 +111,6 @@ def build_model(data: Dict[str, Any]) -> BuildingInput:
             co2_factor_kg_kwh={k: float(v) for k, v in _req(eco, "co2_factor_kg_kwh").items()},
             currency=str(eco.get("currency", "EUR")),
             renovation_cost_eur={k: float(v) for k, v in eco.get("renovation_cost_eur", {}).items()},
-            subsidies_eur={k: float(v) for k, v in eco.get("subsidies_eur", {}).items()},
         ),
     )
     return model
