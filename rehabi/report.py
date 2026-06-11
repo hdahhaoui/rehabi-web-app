@@ -373,13 +373,14 @@ def write_audit_pro_pdf(
 def _build_prioritized_recommendations(
     ranked: List[ScenarioResults],
     scores: dict[str, dict[str, float]],
+    building,
 ) -> List[str]:
     recs: List[str] = []
     
     currency = building.economics.currency
     
     all_scores = [
-        scores[r.scenario_name]["total_score_100"]
+        scores[r.scenario_name].get("total_score_100", 0.0)
         for r in ranked
         if r.scenario_name in scores
     ]
