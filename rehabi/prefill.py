@@ -110,7 +110,7 @@ def prefill_defaults(building_type: str, year: int, wilaya: str, area_m2: float)
             "energy_price_eur_kwh": ALGERIA_DEFAULT_ENERGY_PRICES_DZD_KWH,
             "co2_factor_kg_kwh": ALGERIA_DEFAULT_CO2_KG_KWH,
             "renovation_cost_eur": {
-                "Isolation des murs": wall_area_m2 * 7000,
+                "Isolation des murs": wall_area * 7000,
                 "Isolation de la toiture": area_m2 * 4500,
                 "Remplacement des fenêtres": window_area * 60000,
                 "Pompe à chaleur air/eau": 1300000 + (volume * 800),
